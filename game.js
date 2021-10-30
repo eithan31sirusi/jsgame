@@ -20,7 +20,7 @@ loadSprite("coin", "coin.png");
 loadSprite("evil-shroom", "evil-shroom.png");
 loadSprite("brick", "brick.png");
 loadSprite("block", "block.png");
-loadSprite("mario", "mario.png");
+loadSprite("mario", "mario_standing.png");
 loadSprite("mashroom", "mashroom.png");
 loadSprite("surprise", "surprise.png");
 loadSprite("unboxed", "unboxed.png");
@@ -31,26 +31,26 @@ loadSprite("pipe-bottom-right", "pipe-bottom-right.png");
 
 /* level 2 Stripes */
 
-loadSprite('blue-block', 'blueblock.png')
-loadSprite('blue-brick', 'bluebrick.png')
-loadSprite('blue-steel', 'bluesteel.png')
-loadSprite('blue-evil-shroom', 'blueevilshroom.png')
-loadSprite('blue-surprise', 'bluesurprise.png')
+loadSprite("blue-block", "blueblock.png");
+loadSprite("blue-brick", "bluebrick.png");
+loadSprite("blue-steel", "bluesteel.png");
+loadSprite("blue-evil-shroom", "blueevilshroom.png");
+loadSprite("blue-surprise", "bluesurprise.png");
 
-scene("game", ({ level,score }) => {
+scene("game", ({ level, score }) => {
   layers(["bg", "obj", "ui"], "obj");
 
   const maps = [
     [
-    "                                ",
-    "                                ",
-    "                                ",
-    "                                ",
-    "     %  =*=%=                   ",
-    "                                ",
-    "                        -+      ",
-    "            ^  ^        ()      ",
-    "==========================  ====",
+      "                                ",
+      "                                ",
+      "                                ",
+      "                                ",
+      "     %  =*=%=                   ",
+      "                                ",
+      "                        -+      ",
+      "            ^  ^        ()      ",
+      "==========================  ====",
     ],
     [
       "£                                     £",
@@ -62,8 +62,7 @@ scene("game", ({ level,score }) => {
       "£                    x x x x x      -+£",
       "£            z  z  x x x x x x      ()£",
       "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-    ]
-
+    ],
   ];
 
   const levelCfg = {
@@ -77,20 +76,20 @@ scene("game", ({ level,score }) => {
     "%": [sprite("surprise"), solid(), "coin-surprise"],
     "*": [sprite("surprise"), solid(), "mushroom-surprise"],
     "}": [sprite("unboxed"), solid()],
-    "(": [sprite("pipe-bottom-left"), solid(), scale(0.5), 'pipe'],
-    ")": [sprite("pipe-bottom-right"), solid(), scale(0.5),'pipe'],
+    "(": [sprite("pipe-bottom-left"), solid(), scale(0.5), "pipe"],
+    ")": [sprite("pipe-bottom-right"), solid(), scale(0.5), "pipe"],
     "-": [sprite("pipe-top-left"), solid(), scale(0.5)],
     "+": [sprite("pipe-top-right"), solid(), scale(0.5)],
     "^": [sprite("evil-shroom"), solid(), "dangerous"],
     "#": [sprite("mashroom"), solid(), "mashroom", body()],
 
-/* level 2 elments */
+    /* level 2 elments */
 
-    '!': [sprite('blue-block'), solid(), scale(0.5)],
-    '£': [sprite('blue-brick'), solid(), scale(0.5)],
-    'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
-    '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
-    'x': [sprite('blue-steel'), solid(), scale(0.5)],
+    "!": [sprite("blue-block"), solid(), scale(0.5)],
+    "£": [sprite("blue-brick"), solid(), scale(0.5)],
+    z: [sprite("blue-evil-shroom"), solid(), scale(0.5), "dangerous"],
+    "@": [sprite("blue-surprise"), solid(), scale(0.5), "coin-surprise"],
+    x: [sprite("blue-steel"), solid(), scale(0.5)],
   };
   const gameLevel = addLevel(maps[level], levelCfg);
 
@@ -190,14 +189,14 @@ scene("game", ({ level,score }) => {
     }
   });
 
-  player.collides('pipe', () => {
-    keyPress('down', () => {
-      go('game', {
-        level:(level + 1),
-        score : scoreLabel.value
-      })
-    })
-  })
+  player.collides("pipe", () => {
+    keyPress("down", () => {
+      go("game", {
+        level: level + 1,
+        score: scoreLabel.value,
+      });
+    });
+  });
 
   keyDown("left", () => {
     player.move(-MOVE_SPEED, 0);
@@ -221,7 +220,11 @@ scene("game", ({ level,score }) => {
 });
 
 scene("lose", ({ score }) => {
-  add([text(`YOUR SCOURE: ${score}`, 32), origin("center"), pos(width() / 2, height() / 2)]);
+  add([
+    text(`YOUR SCOURE: ${score}`, 32),
+    origin("center"),
+    pos(width() / 2, height() / 2),
+  ]);
 });
 
-start("game", {level:0, score: 0 });
+start("game", { level: 0, score: 0 });
